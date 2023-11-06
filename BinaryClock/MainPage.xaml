@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="BinaryClock.MainPage"
+             BackgroundColor="LightGray">
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+        
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="20,0"
+            VerticalOptions="Start">
+
+            
+            <Label
+                Text="Binary Clock"
+                FontSize="32"
+                HeightRequest="40"
+                HorizontalOptions="Center"/>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="50" Padding="10,0,0,0">
+
+                <Border BackgroundColor="WhiteSmoke"
+                        WidthRequest="200"
+                        HeightRequest="75"
+                        Stroke="Black"
+                        StrokeShape="RoundRectangle 10,10,10,10">
+                    <Entry Keyboard="Numeric"
+                           Placeholder="00:00:00"
+                           PlaceholderColor="DarkSlateGray"
+                           TextColor="Black"
+                           HorizontalOptions="Center"
+                           FontSize="28"
+                           x:Name="TextEntry"
+                           TextChanged="CheckIfValidInput">
+
+                        <Entry.Behaviors>
+                            <toolkit:MaskedBehavior Mask="00:00:00" UnmaskedCharacter="0" />
+                            <toolkit:NumericValidationBehavior
+                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                ValidStyle="{StaticResource ValidEntryStyle}"
+                                Flags="ValidateOnValueChanged" />
+                        </Entry.Behaviors>
+
+                    </Entry>
+                    </Border>
+
+                <Button
+                    x:Name="Convert"
+                    Text="Convert"
+                    FontSize="28"
+                    SemanticProperties.Hint="Converts the given number to binary clock"
+                    Clicked="OnConvertClick"
+                    HorizontalOptions="Center"
+                    WidthRequest="150"
+                    HeightRequest="75"/>
+            </HorizontalStackLayout>
+            
+            <HorizontalStackLayout 
+                HorizontalOptions ="Center"
+                Spacing="25"
+                Padding="0,100,0,0">
+                <Border WidthRequest="25"
+                        HeightRequest="300"
+                        Background="Transparent"
+                        Stroke="Transparent">
+                    
+                    <Label Text="8 4 2 1"
+                          FontSize="28"
+                          HorizontalOptions="Center"
+                          LineHeight="2.5"
+                          VerticalOptions="End"
+                          TextColor="Black"/>
+                </Border>
+                
+                <Border WidthRequest="200"
+                        HeightRequest="300"
+                        BackgroundColor="LightYellow">
+                    <HorizontalStackLayout VerticalOptions="End"
+                                           Spacing="50">
+                        <VerticalStackLayout VerticalOptions="End"
+                                             Padding="10"
+                                             Spacing="25">
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Hour0_1"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Hour0_2"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout VerticalOptions="End"
+                                             Padding="10"
+                                             Spacing="25">
+                            <Border WidthRequest="50"
+                                HeightRequest="50"
+                                StrokeShape="RoundRectangle 40,40,40,40"
+                                Stroke="Black"
+                                x:Name="Hour1_1"
+                                StrokeThickness="2"
+                                Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                HeightRequest="50"
+                                StrokeShape="RoundRectangle 40,40,40,40"
+                                Stroke="Black"
+                                x:Name="Hour1_2"
+                                StrokeThickness="2"
+                                Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Hour1_3"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Hour1_4"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                    
+                </Border>
+                <Border WidthRequest="200"
+                    HeightRequest="300"
+                    BackgroundColor="LightGreen">
+                    <HorizontalStackLayout VerticalOptions="End"
+                       Spacing="50">
+                        <VerticalStackLayout VerticalOptions="End"
+                         Padding="10"
+                         Spacing="25">
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Minute0_1"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>      
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Minute0_2"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Minute0_3"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout VerticalOptions="End"
+                         Padding="10"
+                         Spacing="25">
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Minute1_1"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Minute1_2"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Minute1_3"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Minute1_4"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>      
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                </Border>
+                <Border WidthRequest="200"
+                    HeightRequest="300"
+                    BackgroundColor="LightPink">
+                    <HorizontalStackLayout VerticalOptions="End"
+                        Spacing="50">
+                        <VerticalStackLayout VerticalOptions="End"
+                        Padding="10"
+                        Spacing="25">
+                            <Border WidthRequest="50"
+                                HeightRequest="50"
+                                StrokeShape="RoundRectangle 40,40,40,40"
+                                Stroke="Black"
+                                x:Name="Seconds0_1"
+                                StrokeThickness="2"
+                                Background="DimGray"/>      
+                            <Border WidthRequest="50"
+                                HeightRequest="50"
+                                StrokeShape="RoundRectangle 40,40,40,40"
+                                Stroke="Black"
+                                x:Name="Seconds0_2"
+                                StrokeThickness="2"
+                                Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                HeightRequest="50"
+                                StrokeShape="RoundRectangle 40,40,40,40"
+                                Stroke="Black"
+                                x:Name="Seconds0_3"
+                                StrokeThickness="2"
+                                Background="DimGray"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout VerticalOptions="End"
+                        Padding="10"
+                        Spacing="25">
+                            <Border WidthRequest="50"
+                            HeightRequest="50"
+                            StrokeShape="RoundRectangle 40,40,40,40"
+                            Stroke="Black"
+                            x:Name="Seconds1_1"
+                            StrokeThickness="2"
+                            Background="DimGray"/>
+                            <Border WidthRequest="50"
+                            HeightRequest="50"
+                            StrokeShape="RoundRectangle 40,40,40,40"
+                            Stroke="Black"
+                            x:Name="Seconds1_2"
+                            StrokeThickness="2"
+                            Background="DimGray"/>
+                            <Border WidthRequest="50"
+                            HeightRequest="50"
+                            StrokeShape="RoundRectangle 40,40,40,40"
+                            Stroke="Black"
+                            x:Name="Seconds1_3"
+                            StrokeThickness="2"
+                            Background="DimGray"/>
+                            <Border WidthRequest="50"
+                            HeightRequest="50"
+                            StrokeShape="RoundRectangle 40,40,40,40"
+                            Stroke="Black"
+                            x:Name="Seconds1_4"
+                            StrokeThickness="2"
+                            Background="DimGray"/>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                </Border>
+
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
