@@ -54,15 +54,7 @@
                     </Entry>
                     </Border>
 
-                <Button
-                    x:Name="Convert"
-                    Text="Convert"
-                    FontSize="28"
-                    SemanticProperties.Hint="Converts the given number to binary clock"
-                    Clicked="OnConvertClick"
-                    HorizontalOptions="Center"
-                    WidthRequest="150"
-                    HeightRequest="75"/>
+               
             </HorizontalStackLayout>
             
             <HorizontalStackLayout 
@@ -94,14 +86,14 @@
                                     HeightRequest="50"
                                     StrokeShape="RoundRectangle 40,40,40,40"
                                     Stroke="Black"
-                                    x:Name="Hour0_1"
+                                    x:Name="Hour0_2"
                                     StrokeThickness="2"
                                     Background="DimGray"/>
                             <Border WidthRequest="50"
                                     HeightRequest="50"
                                     StrokeShape="RoundRectangle 40,40,40,40"
                                     Stroke="Black"
-                                    x:Name="Hour0_2"
+                                    x:Name="Hour0_1"
                                     StrokeThickness="2"
                                     Background="DimGray"/>
                         </VerticalStackLayout>
@@ -112,28 +104,28 @@
                                 HeightRequest="50"
                                 StrokeShape="RoundRectangle 40,40,40,40"
                                 Stroke="Black"
-                                x:Name="Hour1_1"
+                                x:Name="Hour1_4"
                                 StrokeThickness="2"
                                 Background="DimGray"/>
                             <Border WidthRequest="50"
                                 HeightRequest="50"
                                 StrokeShape="RoundRectangle 40,40,40,40"
                                 Stroke="Black"
-                                x:Name="Hour1_2"
+                                x:Name="Hour1_3"
                                 StrokeThickness="2"
                                 Background="DimGray"/>
                             <Border WidthRequest="50"
                                     HeightRequest="50"
                                     StrokeShape="RoundRectangle 40,40,40,40"
                                     Stroke="Black"
-                                    x:Name="Hour1_3"
+                                    x:Name="Hour1_2"
                                     StrokeThickness="2"
                                     Background="DimGray"/>
                             <Border WidthRequest="50"
                                     HeightRequest="50"
                                     StrokeShape="RoundRectangle 40,40,40,40"
                                     Stroke="Black"
-                                    x:Name="Hour1_4"
+                                    x:Name="Hour1_1"
                                     StrokeThickness="2"
                                     Background="DimGray"/>
                         </VerticalStackLayout>
@@ -152,7 +144,7 @@
                                     HeightRequest="50"
                                     StrokeShape="RoundRectangle 40,40,40,40"
                                     Stroke="Black"
-                                    x:Name="Minute0_1"
+                                    x:Name="Minute0_3"
                                     StrokeThickness="2"
                                     Background="DimGray"/>      
                             <Border WidthRequest="50"
@@ -166,7 +158,7 @@
                                     HeightRequest="50"
                                     StrokeShape="RoundRectangle 40,40,40,40"
                                     Stroke="Black"
-                                    x:Name="Minute0_3"
+                                    x:Name="Minute0_1"
                                     StrokeThickness="2"
                                     Background="DimGray"/>
                         </VerticalStackLayout>
@@ -177,14 +169,7 @@
                                     HeightRequest="50"
                                     StrokeShape="RoundRectangle 40,40,40,40"
                                     Stroke="Black"
-                                    x:Name="Minute1_1"
-                                    StrokeThickness="2"
-                                    Background="DimGray"/>
-                            <Border WidthRequest="50"
-                                    HeightRequest="50"
-                                    StrokeShape="RoundRectangle 40,40,40,40"
-                                    Stroke="Black"
-                                    x:Name="Minute1_2"
+                                    x:Name="Minute1_4"
                                     StrokeThickness="2"
                                     Background="DimGray"/>
                             <Border WidthRequest="50"
@@ -198,7 +183,14 @@
                                     HeightRequest="50"
                                     StrokeShape="RoundRectangle 40,40,40,40"
                                     Stroke="Black"
-                                    x:Name="Minute1_4"
+                                    x:Name="Minute1_2"
+                                    StrokeThickness="2"
+                                    Background="DimGray"/>
+                            <Border WidthRequest="50"
+                                    HeightRequest="50"
+                                    StrokeShape="RoundRectangle 40,40,40,40"
+                                    Stroke="Black"
+                                    x:Name="Minute1_1"
                                     StrokeThickness="2"
                                     Background="DimGray"/>      
                         </VerticalStackLayout>
@@ -217,7 +209,7 @@
                                 HeightRequest="50"
                                 StrokeShape="RoundRectangle 40,40,40,40"
                                 Stroke="Black"
-                                x:Name="Seconds0_1"
+                                x:Name="Seconds0_3"
                                 StrokeThickness="2"
                                 Background="DimGray"/>      
                             <Border WidthRequest="50"
@@ -231,7 +223,7 @@
                                 HeightRequest="50"
                                 StrokeShape="RoundRectangle 40,40,40,40"
                                 Stroke="Black"
-                                x:Name="Seconds0_3"
+                                x:Name="Seconds0_1"
                                 StrokeThickness="2"
                                 Background="DimGray"/>
                         </VerticalStackLayout>
@@ -242,14 +234,7 @@
                             HeightRequest="50"
                             StrokeShape="RoundRectangle 40,40,40,40"
                             Stroke="Black"
-                            x:Name="Seconds1_1"
-                            StrokeThickness="2"
-                            Background="DimGray"/>
-                            <Border WidthRequest="50"
-                            HeightRequest="50"
-                            StrokeShape="RoundRectangle 40,40,40,40"
-                            Stroke="Black"
-                            x:Name="Seconds1_2"
+                            x:Name="Seconds1_4"
                             StrokeThickness="2"
                             Background="DimGray"/>
                             <Border WidthRequest="50"
@@ -263,7 +248,14 @@
                             HeightRequest="50"
                             StrokeShape="RoundRectangle 40,40,40,40"
                             Stroke="Black"
-                            x:Name="Seconds1_4"
+                            x:Name="Seconds1_2"
+                            StrokeThickness="2"
+                            Background="DimGray"/>
+                            <Border WidthRequest="50"
+                            HeightRequest="50"
+                            StrokeShape="RoundRectangle 40,40,40,40"
+                            Stroke="Black"
+                            x:Name="Seconds1_1"
                             StrokeThickness="2"
                             Background="DimGray"/>
                         </VerticalStackLayout>
