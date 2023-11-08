@@ -1,10 +1,13 @@
 ﻿using System.Diagnostics;
-using System.Text;
+using System;
+using System.Timers;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BinaryClock
 {
     public partial class MainPage : ContentPage
     {
+        System.Timers.Timer timer;
         List<Border> Hour1 = new List<Border>();
         List<Border> Hour2 = new List<Border>();
 
@@ -22,6 +25,9 @@ namespace BinaryClock
             Hour1.Add(Hour0_2);
             Hour2.Add(Hour1_1);
             Hour2.Add(Hour1_2);
+            Hour2.Add(Hour1_3);
+            Hour2.Add(Hour1_4);
+
 
             Minute1.Add(Minute0_1);
             Minute1.Add(Minute0_2);
@@ -50,42 +56,47 @@ namespace BinaryClock
             Off = new Color(108, 108, 108);
         }
         bool IsValid = true;
+        string h1, h2, m1, m2, s1, s2;
+
         void ConvertToBinary()
         {
-            if (!IsValid)
+            if (!IsValid || OnTime)
                 return;
             string text = TextEntry.Text;
             if (text.Length < 8)
                 return;
+
+            SplitTime(text);
+
+            SetHour(h1, h2);
+            SetMinute(m1, m2);
+            SetSeconds(s1, s2);
+            Trace.WriteLine(s1 + " " + s2);
+        }
+
+        void SplitTime(string text)
+        {
             string[] split = text.Split(':');  // dau split stringul dupa ':'
+
             
             int hour1 = int.Parse(split[0][0].ToString());
             int hour2 = int.Parse(split[0][1].ToString());
+            
 
-            string h1 = ConvertToDecimal(hour1);
-            string h2 = ConvertToDecimal(hour2);
-
-            SetHour(h1, h2);
-            Trace.WriteLine(h1 + " " + h2);
+            h1 = ConvertToDecimal(hour1);
+            h2 = ConvertToDecimal(hour2);
 
             int min1 = int.Parse(split[1][0].ToString());
             int min2 = int.Parse(split[1][1].ToString());
 
-            string m1 = ConvertToDecimal(min1);
-            string m2 = ConvertToDecimal(min2);
-
-            SetMinute(m1,m2);
-            Trace.WriteLine(m1 + " " + m2);
+            m1 = ConvertToDecimal(min1);
+            m2 = ConvertToDecimal(min2);
 
             int sec1 = int.Parse(split[2][0].ToString());
             int sec2 = int.Parse(split[2][1].ToString());
 
-            string s1 = ConvertToDecimal(sec1);
-            string s2 = ConvertToDecimal(sec2);
-
-            SetSeconds(s1, s2);
-            Trace.WriteLine(s1 + " " + s2);
-
+            s1 = ConvertToDecimal(sec1);
+            s2 = ConvertToDecimal(sec2);
         }
 
         void SetHour(string h1, string h2)
@@ -170,6 +181,9 @@ namespace BinaryClock
 
         void CheckIfValidInput(object sender, EventArgs e)
         {
+            if (OnTime)
+                return;
+            
             ClearScreen();
             string text = TextEntry.Text;
             //string letters = new string(TextEntry.Text.Where(char.IsLetter).ToArray());
@@ -179,12 +193,14 @@ namespace BinaryClock
                     IsValid = false;
             if (text.Length >= 1) // daca ora incepe cu 3x:xx:xx sau mai mare
             {
-                if (text[0] > '2')
+                if (text[0] > '2' && text[0] != '0')
                     IsValid = false;
             }
             if (text.Length >= 2) // daca ora are forma x5:xx:xx sau mai mare
             {
-                if (text[0] > '2' || text[1] > '3')
+                if (text[0] > '2'&& text[0] != '0')
+                    IsValid = false;
+                if (text[0] == '2' && (text[1] > '3' && text[1] != '0'))
                     IsValid = false;
             }
             if (text.Length >= 4)
@@ -208,7 +224,43 @@ namespace BinaryClock
                 ConvertToBinary();
 
         }
+        bool OnTime = false;
+        void ChangeToCurrentTime(object sender, EventArgs e)
+        {
+            if(OnTime)
+            {
+                OnTime = false;
+                timer.Stop();
+                CurrentTime.Text = "Current Hour";
+                ClearScreen();
+                return;
+            }
+            OnTime = true;
+            ClearScreen();
+            TextEntry.Text = "";
+            CurrentTime.Text = "Stop";
+            
 
+            timer = new System.Timers.Timer(1000);
+            timer.Elapsed += FireMainThread;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+            Trace.WriteLine("Timer started");
+        }
 
+        void FireMainThread(object source, ElapsedEventArgs e)
+        {
+            Action a = () => GetHour();
+            MainThread.BeginInvokeOnMainThread(a);
+        }
+
+        void GetHour()
+        {
+            ClearScreen();
+            SplitTime(DateTime.Now.ToString("HH:mm:ss"));
+            SetHour(h1, h2);
+            SetMinute(m1, m2);
+            SetSeconds(s1, s2); 
+        }
     }
 }

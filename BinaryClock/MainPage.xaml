@@ -54,7 +54,13 @@
                     </Entry>
                     </Border>
 
-               
+                <Button  Text="Current Hour"
+                         Clicked="ChangeToCurrentTime"
+                         Background="AliceBlue"
+                         x:Name="CurrentTime"
+                         HeightRequest="75"
+                         WidthRequest="200"
+                         FontSize="24"/>
             </HorizontalStackLayout>
             
             <HorizontalStackLayout 
