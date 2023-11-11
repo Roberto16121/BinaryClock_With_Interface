@@ -7,6 +7,7 @@ namespace BinaryClock
 {
     public partial class MainPage : ContentPage
     {
+
         System.Timers.Timer timer;
         List<Border> Hour1 = new List<Border>();
         List<Border> Hour2 = new List<Border>();
@@ -18,7 +19,9 @@ namespace BinaryClock
         List<Border> Second2 = new List<Border>();
 
         Color On, Off;
-
+        /// <summary>
+        /// Adaug toate elementele in listele specifice
+        /// </summary>
         void Init()
         {
             Hour1.Add(Hour0_1);
@@ -48,6 +51,7 @@ namespace BinaryClock
 
         }
 
+
         public MainPage()
         {
             InitializeComponent();
@@ -55,6 +59,11 @@ namespace BinaryClock
             On = new Color(191, 64, 191);
             Off = new Color(108, 108, 108);
         }
+
+        /// <summary>
+        /// IsValid stocheaza daca inputul este valid sau nu
+        /// h1, h2, m1, m2, s1, s2 stocheaza valorile binare ale timpului
+        /// </summary>
         bool IsValid = true;
         string h1, h2, m1, m2, s1, s2;
 
@@ -63,17 +72,23 @@ namespace BinaryClock
             if (!IsValid || OnTime)
                 return;
             string text = TextEntry.Text;
+            //verific daca textul are lungimea necesara pentru a fi un timp valid
             if (text.Length < 8)
                 return;
-
+            //impart textul in 3 stringuri pentru a putea fi convertite in binar
             SplitTime(text);
 
+            //setez ceasul
             SetHour(h1, h2);
             SetMinute(m1, m2);
             SetSeconds(s1, s2);
-            Trace.WriteLine(s1 + " " + s2);
+            //Trace.WriteLine(s1 + " " + s2);
         }
 
+        /// <summary>
+        /// Imparte stringul "text" in 3 stringuri pentru a putea fi convertite in binar
+        /// </summary>
+        /// <param name="text"></param>
         void SplitTime(string text)
         {
             string[] split = text.Split(':');  // dau split stringul dupa ':'
@@ -99,6 +114,8 @@ namespace BinaryClock
             s2 = ConvertToDecimal(sec2);
         }
 
+        #region UI
+        //Functiile seateaza backgroundul elementelor in functie de stringul binar
         void SetHour(string h1, string h2)
         {
             for(int i=0;i<h1.Length;i++)
@@ -116,7 +133,6 @@ namespace BinaryClock
                 }
             }
         }
-
         void SetMinute(string m1, string m2)
         {
             for (int i = 0; i < m1.Length; i++)
@@ -151,7 +167,7 @@ namespace BinaryClock
                 }
             }
         }
-
+        //Se reseteaza backgroundul tuturor elementelor
         void ClearScreen()
         {
             foreach(var item in Hour1)
@@ -167,7 +183,8 @@ namespace BinaryClock
             foreach (var item in Second2)
                 item.Background = Off;
         }
-
+        #endregion UI
+        //Conversia din decimal in binar
         String ConvertToDecimal(int nr)
         {
             string toRet = "";
@@ -179,6 +196,9 @@ namespace BinaryClock
             return toRet;
         }
 
+        /// <summary>
+        /// Verific daca inputul este valid
+        /// </summary>
         void CheckIfValidInput(object sender, EventArgs e)
         {
             if (OnTime)
@@ -205,7 +225,7 @@ namespace BinaryClock
             }
             if (text.Length >= 4)
             {
-                if (text[3] > '5') // daca minutele incep cu x:x5:xx sau mai mare
+                if (text[3] > '5') // daca minutele incep cu xx:5x:xx sau mai mare
                     IsValid = false;
             }
             if(text.Length >= 7)
@@ -224,7 +244,13 @@ namespace BinaryClock
                 ConvertToBinary();
 
         }
+
+        //Functiile necesare pentru a afisa ora curenta
+        #region CurrentTime
         bool OnTime = false;
+        /// <summary>
+        /// Functia este apelata de butonul "Current Hour"
+        /// </summary>
         void ChangeToCurrentTime(object sender, EventArgs e)
         {
             if(OnTime)
@@ -248,12 +274,15 @@ namespace BinaryClock
             Trace.WriteLine("Timer started");
         }
 
+        //Timerul functineaza pe un thread separat, asa ca trebuie sa apelez functia pe MainThread (UI se poate schimba doar pe MainThread)
         void FireMainThread(object source, ElapsedEventArgs e)
         {
             Action a = () => GetHour();
             MainThread.BeginInvokeOnMainThread(a);
         }
-
+        /// <summary>
+        /// Seteaza ora curenta
+        /// </summary>
         void GetHour()
         {
             ClearScreen();
@@ -262,5 +291,6 @@ namespace BinaryClock
             SetMinute(m1, m2);
             SetSeconds(s1, s2); 
         }
+        #endregion CurrentTime
     }
 }
